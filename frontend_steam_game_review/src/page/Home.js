@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <>
       <Head />
+      test
       <Main />
     </>
   );
