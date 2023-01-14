@@ -1,8 +1,7 @@
 import React from "react";
 
 import Head from "../components/Head";
-import Layout from "../components/layout/Layout";
-import GameInfo from "../features/gameInfo/GameInfo";
+import GameInfo from "../features/GameInfo/gameInfo";
 
 const Detail = () => {
   return (
