@@ -1,13 +1,35 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 const Head = () => {
+  const navigate = useNavigate();
+
   return (
     <GlobalNav>
       <LogoTextContent>
-        <LogoImg>Logo</LogoImg>
+        <LogoImg
+          onClick={() => {
+            navigate(`/Detail`);
+          }}
+        >
+          Logo
+        </LogoImg>
         <Menu>
-          <Login>Login</Login>
-          <Sign>Sign</Sign>
+          <Login
+            onClick={() => {
+              navigate(`/Login`);
+            }}
+          >
+            Login
+          </Login>
+          <Sign
+            onClick={() => {
+              navigate(`/Signup`);
+            }}
+          >
+            Sign
+          </Sign>
         </Menu>
       </LogoTextContent>
     </GlobalNav>
