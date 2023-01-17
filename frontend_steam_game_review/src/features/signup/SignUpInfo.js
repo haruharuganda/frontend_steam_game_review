@@ -9,7 +9,7 @@ const SignUpInfo = () => {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({
-    userId: "",
+    userid: "",
     password: "",
     passwordCheck: "",
     email: "",
@@ -18,7 +18,7 @@ const SignUpInfo = () => {
   console.log(user);
 
   //유저 스테이트 구조분해 할당
-  const { userId, password, passwordCheck, email } = user;
+  const { userid, password, passwordCheck, email } = user;
 
   //유효성 메시지
   const [emailInputMessage, setEmailInput] = useState("");
@@ -39,7 +39,7 @@ const SignUpInfo = () => {
       return { ...userInfo, [name]: value };
     });
 
-    if (name === "userId")
+    if (name === "userid")
       !regId.test(value)
         ? setIdInput("아이디는 영어로 입력해주세요")
         : setIdInput("");
@@ -74,7 +74,7 @@ const SignUpInfo = () => {
     e.preventDefault();
 
     if (
-      (userId.trim() === "" && userId.length >= 4) ||
+      (userid.trim() === "" && userid.length >= 4) ||
       email.trim() === "" ||
       (password.trim() === "" && password.length >= 8 && password.length < 21)
       //passwordCheck.trim() === "" ||
@@ -84,7 +84,7 @@ const SignUpInfo = () => {
 
     dispatch(
       __signUp({
-        userId,
+        userid,
         password,
         email,
       })
@@ -105,8 +105,8 @@ const SignUpInfo = () => {
             <InputBox
               type={"text"}
               placeholder="아이디를 입력해주세요(4자 이상)"
-              name="userId"
-              value={userId}
+              name="userid"
+              value={userid}
               onChange={onChangeHandler}
             ></InputBox>
             <button onClick={idCheck}>아이디 중복확인</button>
