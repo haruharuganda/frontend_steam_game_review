@@ -21,7 +21,7 @@ export const __postLogin = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const data = await axiosInstance.post(`/login`, payload);
+      const data = await axiosInstance.post(`/api/auth/login`, payload);
       // axios.then((res) => {
       //   sessionStorage.setItem("access_token", res.headers.access_token);
       //   sessionStorage.setItem("refresh_token", res.headers.refresh_token);

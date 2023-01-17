@@ -14,5 +14,6 @@ const StLayout = styled.div`
   max-height: 100%;
 
   margin: 0 auto;
+
   background: linear-gradient(to bottom, #527ea0 0%, #2a475e 40%);
 `;
