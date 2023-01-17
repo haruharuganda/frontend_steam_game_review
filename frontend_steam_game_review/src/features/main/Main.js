@@ -1,36 +1,38 @@
 import React from "react";
 import styled from "styled-components";
-
-import bear1 from "../../img/농담곰018.jpg";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import SimpleSlider from "../../components/SimpleSlider";
-
+import { __getGameList } from "../../reduex/modules/mainSlice";
 const Main = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState(0);
 
-  const menuArr = [
-    {
-      name: "Genre1",
-      img: bear1,
-      title: "농담곰 귀엽죠",
-    },
-    {
-      name: "Genre2",
-      img: bear1,
-      title: "농담곰 짱이죠",
-    },
-    {
-      name: "Genre3",
-      img: bear1,
-      title: "농담곰 짱짱짱",
-    },
-  ];
+  const genre = ["ALL", "RPG", "FPS", "ACTION"];
+  const { gameList } = useSelector((state) => state.mainSlice);
+  const [newList, setNewList] = useState(gameList);
 
-  const selectMenuHandler = (index) => {
-    setCurrentTab(index);
+  const selectMenuHandler = (e) => {
+    if (e.target.id === "ALL") {
+      console.log(e.target.id);
+      setNewList(gameList);
+    } else {
+      console.log(e.target.id);
+      const newGameList = gameList.filter(
+        (genre) => genre.gameGenre === e.target.id
+      );
+      setNewList(newGameList);
+    }
   };
+
+  useEffect(() => {
+    dispatch(__getGameList());
+  }, []);
+
+  useEffect(() => {
+    setNewList(gameList);
+  }, [gameList]);
 
   return (
     <>
@@ -42,30 +44,30 @@ const Main = () => {
           <ContentBox>
             <div>
               <TabMenu>
-                {menuArr.map((ele, index) => {
+                {genre.map((content, index) => {
                   return (
-                    <li
-                      key={index}
-                      className={
-                        currentTab === index ? "submenu focused" : "submenu"
-                      }
-                      onClick={() => selectMenuHandler(index)}
-                    >
-                      {ele.name}
-                    </li>
+                    <Menu key={index} id={content} onClick={selectMenuHandler}>
+                      {content}
+                    </Menu>
                   );
                 })}
               </TabMenu>
-              <Desc
-                onClick={() => {
-                  navigate(`/Detail`);
-                }}
-              >
-                <ContentImgBox>
-                  <ContentImg src={menuArr[currentTab].img}></ContentImg>
-                </ContentImgBox>
-                <Title>{menuArr[currentTab].title}</Title>
-              </Desc>
+
+              {newList.map((contnet, index) => {
+                return (
+                  <Desc
+                    onClick={() => {
+                      navigate(`/Detail/${contnet.id}`);
+                    }}
+                    key={index}
+                  >
+                    <ContentImgBox>
+                      <ContentImg src={contnet.gameImage}></ContentImg>
+                    </ContentImgBox>
+                    <Title>{contnet.gameName}</Title>
+                  </Desc>
+                );
+              })}
             </div>
           </ContentBox>
         </ContentContainer>
@@ -90,22 +92,6 @@ const ImgContainer = styled.div`
   min-width: 20%;
 `;
 
-const ImgSlice = styled.div`
-  height: 400px;
-
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-
-  justify-content: center;
-`;
-
-const ImgBox = styled.div``;
-const Img = styled.img`
-  width: 850px;
-  height: 300px;
-`;
-
 const Button = styled.button`
   height: 300px;
 `;
@@ -121,21 +107,17 @@ const ContentContainer = styled.div`
 const ContentBox = styled.div``;
 
 const TabMenu = styled.ul`
-  background-color: #dcdcdc;
+  height: 35px;
   font-weight: bold;
   display: flex;
   flex-direction: row;
   justify-items: center;
   align-items: center;
   list-style: none;
-
-  .submenu {
-    width: 100% auto;
-    padding: 15px 10px;
-    cursor: pointer;
-  }
 `;
-
+const Menu = styled.li`
+  margin: 5px;
+`;
 const Desc = styled.div`
   display: flex;
   background-color: #4e697d;
