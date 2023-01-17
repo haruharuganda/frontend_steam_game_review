@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { __addComment, __getComments } from "../../redux/modules/commentsSlice";
+import {
+  __addComment,
+  __getComments,
+} from "../../reduex/modules/commentsSlice";
 import CommentsCard from "./CommentsCard";
 
 const GameInfo = () => {
