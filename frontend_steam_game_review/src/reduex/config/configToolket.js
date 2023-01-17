@@ -1,9 +1,8 @@
-import React from "react";
+import { configureStore } from "@reduxjs/toolkit";
+import loginSignUp from "../modules/loginSignUp";
 
-const configToolket = () => {
-  return <div></div>;
-};
+const store = configureStore({
+  reducer: { loginSignUp: loginSignUp },
+});
 
-export default configToolket;
-
-//test
+export default store;
