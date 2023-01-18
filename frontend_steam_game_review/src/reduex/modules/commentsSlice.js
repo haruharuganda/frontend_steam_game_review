@@ -15,9 +15,13 @@ const initialState = {
 export const __getComments = createAsyncThunk(
   "getComments",
   async (payload, thunkAPI) => {
+    console.log("리듀서 페이로드 받기", payload);
     try {
-      const data = await axios.get("http://localhost:3001/comments");
+      const data = await axios.get(
+        `http://localhost:3001/comments?gameid=${payload}`
+      );
       console.log("리듀서 겟 받기", data);
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -30,7 +34,8 @@ export const __addComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post("http://localhost:3001/comments", payload);
-      console.log(data);
+      // console.log(data);
+      // console.log("코멘트 페이로드", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);

@@ -6,14 +6,18 @@ import CommentsForm from "./CommentsForm";
 import { __getgames } from "../../reduex/modules/gameInfoSlice";
 
 const GameInfo = () => {
+  //게임리스트의 아이디 받아오기
   const { id } = useParams();
-  console.log("파람 아이디", id);
+  // console.log("게임 아이디?", id);
+
   const dispatch = useDispatch();
 
-  const game = useSelector((state) => state.games.games);
+  //게임리스트 객체 가져오기
+  const game = useSelector((state) => state.gameList.gameList);
+  // console.log("게임의 셀렉터는?", game);
 
   useEffect(() => {
-    dispatch(__getgames());
+    dispatch(__getgames(id));
   }, [dispatch]);
 
   return (
@@ -21,7 +25,7 @@ const GameInfo = () => {
       {/* 게임 디테일 이미지 */}
       <Wrap>
         <ImgContainer>
-          <TitleBox key={game.id}>{game.title}</TitleBox>
+          <TitleBox key={id}>{game.gameName}</TitleBox>
           <ImgBox>이미지 자리</ImgBox>
         </ImgContainer>
         {/* 게임 디테일 컨텐츠 */}
@@ -31,7 +35,7 @@ const GameInfo = () => {
         </ContentsContainer>
       </Wrap>
       {/* 코멘트 달리는 폼 */}
-      <CommentsForm />
+      <CommentsForm key={id} />
     </GameInfoContainer>
   );
 };
