@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import SimpleSlider from "../../components/SimpleSlider";
 import { __getGameList } from "../../reduex/modules/mainSlice";
+
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,18 +54,18 @@ const Main = () => {
                 })}
               </TabMenu>
 
-              {newList.map((contnet, index) => {
+              {newList.map((content, index) => {
                 return (
                   <Desc
                     onClick={() => {
-                      navigate(`/Detail/${contnet.id}`);
+                      navigate(`/Detail/${content.id}`);
                     }}
                     key={index}
                   >
                     <ContentImgBox>
-                      <ContentImg src={contnet.gameImage}></ContentImg>
+                      <ContentImg src={content.gameImage}></ContentImg>
                     </ContentImgBox>
-                    <Title>{contnet.gameName}</Title>
+                    <Title>{content.gameName}</Title>
                   </Desc>
                 );
               })}

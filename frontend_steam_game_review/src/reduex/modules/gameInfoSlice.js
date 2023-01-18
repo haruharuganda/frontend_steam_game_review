@@ -3,13 +3,11 @@ import { axiosInstance } from "../../share/request";
 import axios from "axios"; // axios import 합니다.
 
 const initialState = {
-  games: [],
+  gameList: [],
   game: {
-    gameid: 0,
-    gameimage: "",
-    gamename: "",
-    gamegenre: "",
-    gamestar: "",
+    gameImage: "",
+    gameName: "",
+    gameGenre: "",
   },
   isLoading: false,
   error: null,
@@ -19,8 +17,9 @@ export const __getgames = createAsyncThunk(
   "getGames",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/games");
-      console.log("리듀서 겟 받기", data);
+      const data = await axios.get(`http://localhost:3001/gameList/${payload}`);
+      // console.log("겟게임 데이터", data);
+      // console.log("겟게임 페이로드", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -32,7 +31,7 @@ export const __addgame = createAsyncThunk(
   "addGame",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/games", payload);
+      const data = await axios.post("http://localhost:3001/gameList", payload);
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -56,7 +55,7 @@ export const __addgame = createAsyncThunk(
 // );
 
 export const gameInfoSlice = createSlice({
-  name: "games",
+  name: "gameList",
   initialState,
   reducers: {},
   extraReducers: {
@@ -66,8 +65,8 @@ export const gameInfoSlice = createSlice({
     },
     [__getgames.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.comments = action.payload;
-      console.log("풀필드", state.games);
+      state.gameList = action.payload;
+      // console.log("풀필드", state.gameList);
     },
     [__getgames.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
@@ -76,7 +75,7 @@ export const gameInfoSlice = createSlice({
     // post 보내는 리듀서
     [__addgame.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.games.push(action.payload);
+      state.gameList.push(action.payload);
     },
     [__addgame.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.

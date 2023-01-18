@@ -9,10 +9,17 @@ import {
 import CommentsCard from "./CommentsCard";
 
 const CommentsForm = () => {
-  const [comment, setComment] = useState("");
+  // 게임인포에서 보내는 게임 아이디값
+  const { id } = useParams();
+  console.log("코멘트폼 파람값?", id);
+
+  //게임아이디를 넣기위한 선언문
+  const gameid = id;
+
+  const [comment, setComment] = useState({ comment: "", gameid: id });
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments.comments);
-  console.log("셀렉터 코멘츠", comments);
+  console.log("셀렉터 코멘츠?", comments);
 
   //코멘트 입력
   const onChangeHandler = (event) => {
@@ -21,7 +28,7 @@ const CommentsForm = () => {
       ...comment,
       [name]: value,
     });
-    console.log("온체인지 입력 값", comment);
+    console.log("코멘트 입력 값", comment);
   };
 
   //코멘트 POST 요청
@@ -29,15 +36,16 @@ const CommentsForm = () => {
     if (comment.comment.trim() === "") {
       return alert("내용을 입력하세요.");
     }
-    dispatch(__addComment(comment));
+    dispatch(__addComment({ gameid: id, ...comment }));
     setComment({ comment: "" });
-    console.log("에드코멘트의 값", comment);
+    console.log("에드코멘트의 값", comment, id);
   };
 
-  //코멘트가 추가될때마다 렌더링 해준다.
+  //코멘트가 추가될때마다 렌더링 해준다. 해당 게임에 맞는 코멘트를 불러오기위해 아이디값을 넣어준다
   useEffect(() => {
-    dispatch(__getComments());
+    dispatch(__getComments(gameid));
   }, [dispatch]);
+  console.log(gameid);
   return (
     <div>
       <CommentContainer>

@@ -10,11 +10,11 @@ const initialState = {
 
 //DB에서 데이터 받아오기
 export const __getGameList = createAsyncThunk(
-  "getTodoList",
+  "getGameList",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get("http://localhost:3001/Post");
-      console.log("getTodoList ");
+      const { data } = await axios.get("http://localhost:3001/gameList");
+      console.log("메인슬라이스 데이터", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log(error);
