@@ -23,7 +23,7 @@ const SignUpInfo = () => {
   //유효성 메시지
   const [emailInputMessage, setEmailInput] = useState("");
   const [passInputmessage, setPassInput] = useState("");
-  //const [passCheckInput, setPassCheckInput] = useState("");
+  const [passCheckInput, setPassCheckInput] = useState("");
   const [idInputmessage, setIdInput] = useState("");
 
   //정규식
@@ -52,10 +52,10 @@ const SignUpInfo = () => {
           )
         : setPassInput("");
 
-    // if (name === "passwordCheck")
-    //   password !== value
-    //     ? setPassCheckInput("비밀번호가 불일치합니다")
-    //     : setPassCheckInput("");
+    if (name === "passwordCheck")
+      password !== value
+        ? setPassCheckInput("비밀번호가 불일치합니다")
+        : setPassCheckInput("");
 
     if (name === "email")
       !regEmail.test(value)
@@ -72,14 +72,23 @@ const SignUpInfo = () => {
   //회원가입 POST 요청 및 공백 존재 시 경고창
   const onSubmitUserHandler = (e) => {
     e.preventDefault();
+    console.log(password, passwordCheck);
 
+    //빈칸유효성 검사
     if (
       (userid.trim() === "" && userid.length >= 4) ||
-      email.trim() === "" ||
-      (password.trim() === "" && password.length >= 8 && password.length < 21)
-      //passwordCheck.trim() === "" ||
+      (password.trim() === "" &&
+        password.length >= 8 &&
+        password.length < 21) ||
+      passwordCheck.trim() === "" ||
+      email.trim() === ""
     ) {
-      return alert("아이디랑 비밀번호를 입력해주세요!");
+      return alert("아이디랑 비밀번호를 올바르게 입력해주세요!");
+    }
+
+    //비밀번호 확인및 비밀번호 일치여부
+    if (password !== passwordCheck) {
+      return alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
     }
 
     dispatch(
@@ -126,6 +135,20 @@ const SignUpInfo = () => {
             ></InputBox>
             <p id="help-password1" className="help">
               {passInputmessage}
+            </p>
+          </div>
+          <div>
+            PasswordCheck :
+            <InputBox
+              type="password"
+              name="passwordCheck"
+              placeholder="비밀번호를 입력해주세요(8~20자)"
+              maxLength={20}
+              value={passwordCheck}
+              onChange={onChangeHandler}
+            ></InputBox>
+            <p id="help-password1" className="help">
+              {passCheckInput}
             </p>
           </div>
 

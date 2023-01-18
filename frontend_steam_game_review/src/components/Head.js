@@ -1,9 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../reduex/modules/loginSignUp";
 const Head = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch;
+  const token = localStorage.getItem("token");
+
+  const logout = () => {
+    console.log(localStorage.getItem("token"));
+    localStorage.removeItem("token");
+    navigate(`/`);
+  };
 
   return (
     <GlobalNav>
@@ -16,20 +25,28 @@ const Head = () => {
           Logo
         </LogoImg>
         <Menu>
-          <Login
-            onClick={() => {
-              navigate(`/Login`);
-            }}
-          >
-            Login
-          </Login>
-          <Sign
-            onClick={() => {
-              navigate(`/Signup`);
-            }}
-          >
-            Sign
-          </Sign>
+          {token ? (
+            <>
+              <Login onClick={logout}>Logout</Login>
+            </>
+          ) : (
+            <>
+              <Login
+                onClick={() => {
+                  navigate(`/Login`);
+                }}
+              >
+                Login
+              </Login>
+              <Sign
+                onClick={() => {
+                  navigate(`/Signup`);
+                }}
+              >
+                Sign
+              </Sign>
+            </>
+          )}
         </Menu>
       </LogoTextContent>
     </GlobalNav>
