@@ -14,9 +14,10 @@ const CommentsForm = () => {
   console.log("코멘트폼 파람값?", id);
 
   //게임아이디를 넣기위한 선언문
-  const gameid = id;
+  // const gameid = id; //로컬
+  const postId = id;
 
-  const [comment, setComment] = useState({ comment: "", gameid: id });
+  const [comment, setComment] = useState({ comment: "", postId: id });
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments.comments);
   console.log("셀렉터 코멘츠?", comments);
@@ -28,7 +29,7 @@ const CommentsForm = () => {
       ...comment,
       [name]: value,
     });
-    console.log("코멘트 입력 값", comment);
+    // console.log("코멘트 입력 값", comment);
   };
 
   //코멘트 POST 요청
@@ -36,20 +37,20 @@ const CommentsForm = () => {
     if (comment.comment.trim() === "") {
       return alert("내용을 입력하세요.");
     }
-    dispatch(__addComment({ gameid: id, ...comment }));
+    dispatch(__addComment({ postId: id, ...comment }));
     setComment({ comment: "" });
-    console.log("에드코멘트의 값", comment, id);
+    // console.log("에드코멘트의 값", comment, id);
   };
 
   //코멘트가 추가될때마다 렌더링 해준다. 해당 게임에 맞는 코멘트를 불러오기위해 아이디값을 넣어준다
   useEffect(() => {
-    dispatch(__getComments(gameid));
+    dispatch(__getComments(postId));
   }, [dispatch]);
-  console.log(gameid);
+  // console.log(gameid);
   return (
     <div>
       <CommentContainer>
-        <div>commentbox</div>
+        <div>가장 유용한 평가</div>
         <input
           size={40}
           onChange={onChangeHandler}
@@ -59,7 +60,7 @@ const CommentsForm = () => {
           placeholder="코멘트를 입력하세요."
         ></input>
         <button onClick={addComment}>등록</button>
-        <div>commentView</div>
+        <div>가장 유용한 평가</div>
         {/* 서버에서 데이터 불러오는동안 비동기로 처리되기 때문에 배열을 불러올 수 없음 그렇기 때문에 옵셔널 체인링을 사용 */}
         {comments?.map((comment) => (
           <CommentsCard key={comment.id} comment={comment} />
@@ -75,9 +76,13 @@ const CommentContainer = styled.div`
   border: 1px solid white;
 
   width: 100%;
-  height: 350px;
+  height: 550px;
 
   margin: 20px auto;
+  padding: 5px;
+
+  color: white;
+  font-weight: 700;
 
   input {
     width: 85%;
@@ -99,7 +104,7 @@ const CommentContainer = styled.div`
     color: white;
     border: none;
     border-radius: 5px;
-    background-color: blue;
+    background-color: #75b022;
     cursor: pointer;
   }
 `;

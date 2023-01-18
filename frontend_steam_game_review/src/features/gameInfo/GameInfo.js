@@ -26,12 +26,12 @@ const GameInfo = () => {
       <Wrap>
         <ImgContainer>
           <TitleBox key={id}>{game.gameName}</TitleBox>
-          <ImgBox>이미지 자리</ImgBox>
+          <ImgBox src={game.gameImage}></ImgBox>
         </ImgContainer>
         {/* 게임 디테일 컨텐츠 */}
         <ContentsContainer>
           <TitleBox>contents</TitleBox>
-          <ContentsBox>contents text</ContentsBox>
+          <ContentsBox></ContentsBox>
         </ContentsContainer>
       </Wrap>
       {/* 코멘트 달리는 폼 */}
@@ -71,7 +71,7 @@ const TitleBox = styled.div`
   border: 1px solid white;
 `;
 
-const ImgBox = styled.div`
+const ImgBox = styled.img`
   width: 500px;
   height: 200px;
 
