@@ -15,12 +15,13 @@ const initialState = {
 export const __getComments = createAsyncThunk(
   "getComments",
   async (payload, thunkAPI) => {
-    console.log("리듀서 페이로드 받기", payload);
+    console.log("겟 페이로드", payload);
     try {
       const data = await axios.get(
-        `http://localhost:3001/comments?gameid=${payload}`
-      );
-      console.log("리듀서 겟 받기", data);
+        `http://localhost:3001/comments?postId=${payload}`
+      ); //로컬용
+      // const data = await axiosInstance.get(`/detail/comment/${payload}`);
+      // console.log("리듀서 겟 받기", data);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -32,8 +33,13 @@ export const __getComments = createAsyncThunk(
 export const __addComment = createAsyncThunk(
   "addComment",
   async (payload, thunkAPI) => {
+    console.log("에드 페이로드", payload);
     try {
-      const data = await axios.post("http://localhost:3001/comments", payload);
+      const data = await axios.post("http://localhost:3001/comments", payload); //로컬용
+      // const data = await axiosInstance.post(
+      //   `/detail/comment/${payload.postId}`,
+      //   payload
+      // );
       // console.log(data);
       // console.log("코멘트 페이로드", payload);
       return thunkAPI.fulfillWithValue(data.data);
@@ -43,22 +49,29 @@ export const __addComment = createAsyncThunk(
     }
   }
 );
-// export const __deleteTodos = createAsyncThunk(
-//   "deleteTodos",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const data = await axios.delete(`http://localhost:3001/todos/${payload}`);
-//       console.log(data);
-//       return thunkAPI.fulfillWithValue(data.data);
-//     } catch (error) {
-//       console.log(error);
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+export const __deleteComment = createAsyncThunk(
+  "deleteComment",
+  async (payload, thunkAPI) => {
+    console.log("딜리트 페이로드", payload);
+    try {
+      const data = await axios.delete(
+        `http://localhost:3001/comments/${payload}`
+      );
+      // // const data = await axiosInstance.delete(
+      // //   `/detail/comment/${payload.postId}/${payload.commentId}`
+      // );
+      console.log("딜리트데이터", data);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const commentsSlice = createSlice({
   name: "comments",
+  // name: "comment",
   initialState,
   reducers: {},
   extraReducers: {
@@ -84,6 +97,18 @@ export const commentsSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
+    // delete 리듀서
+    [__deleteComment.fulfilled]: (state, action) => {
+      const target = state.comments.findIndex(
+        (comment) => comment.id === action.payload
+      );
+      console.log("액션페이로드", action.payload);
+      state.comments.splice(target, 1);
+    },
+    [__deleteComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteComment.rejected]: () => {},
   },
 });
 

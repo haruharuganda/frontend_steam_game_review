@@ -33,44 +33,14 @@
   ],
   "comments": [
     {
-      "gameid": "3",
-      "comment": "asdasdasdasd",
-      "id": 1
-    },
-    {
-      "gameid": "1",
-      "comment": "adasdasdasd",
-      "id": 2
-    },
-    {
-      "gameid": "1",
-      "comment": "asdasdasd",
-      "id": 3
-    },
-    {
-      "gameid": "5",
-      "comment": "asdasdasdsad",
-      "id": 4
-    },
-    {
-      "gameid": "5",
-      "comment": "asdasdsad",
-      "id": 5
-    },
-    {
-      "gameid": "5",
-      "comment": "asdsadasd",
+      "postId": "2",
+      "comment": "게임2 코멘트3",
       "id": 6
     },
     {
-      "gameid": "1",
-      "comment": "sadasd",
-      "id": 7
-    },
-    {
-      "gameid": "1",
-      "comment": "ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
-      "id": 8
+      "postId": "3",
+      "comment": "ㅁㅇㅁㄴㅇㄴㅁㅇ",
+      "id": 10
     }
   ]
 }
