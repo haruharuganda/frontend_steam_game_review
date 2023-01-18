@@ -92,5 +92,9 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all
 frontend_steam_game_review/db.json
 frontend_steam_game_review/db.json
+<<<<<<< HEAD
 node_modules/.yarn-integrity
 yarn.lock
+=======
+frontend_steam_game_review/db.json
+>>>>>>> 938b275435ddd7f26493311c35d8a981314287b3
