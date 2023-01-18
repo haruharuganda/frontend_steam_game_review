@@ -20,3 +20,6 @@ yarn add slick-carousel
 yarn add json-server
 //서버실행
 yarn json-server --watch db.json --port 3001
+
+//jwtdecode
+yarn add jwt-decode

@@ -10,10 +10,14 @@ const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const genre = ["ALL", "RPG", "FPS", "ACTION"];
+  //게임장르 별 탭구성
+  const genre = ["ALL", "RPG", "FPS", "ACTION", "SPORTS"];
   const { gameList } = useSelector((state) => state.mainSlice);
+
+  //탭을 눌렀을시 구성할 리스트상태
   const [newList, setNewList] = useState(gameList);
 
+  //탭을 눌렀을 때 내용변화
   const selectMenuHandler = (e) => {
     if (e.target.id === "ALL") {
       console.log(e.target.id);
@@ -39,21 +43,21 @@ const Main = () => {
     <>
       <Container>
         <ImgContainer>
-          <SimpleSlider />
+          <SimpleSlider img={gameList} />
         </ImgContainer>
+
         <ContentContainer>
+          <TabMenu>
+            {genre.map((content, index) => {
+              return (
+                <Menu key={index} id={content} onClick={selectMenuHandler}>
+                  {content}
+                </Menu>
+              );
+            })}
+          </TabMenu>
           <ContentBox>
             <div>
-              <TabMenu>
-                {genre.map((content, index) => {
-                  return (
-                    <Menu key={index} id={content} onClick={selectMenuHandler}>
-                      {content}
-                    </Menu>
-                  );
-                })}
-              </TabMenu>
-
               {newList.map((content, index) => {
                 return (
                   <Desc
@@ -89,23 +93,28 @@ const Container = styled.div`
 `;
 
 const ImgContainer = styled.div`
+  margin-top: 25px;
   max-width: 100%;
   min-width: 20%;
 `;
 
-const Button = styled.button`
-  height: 300px;
-`;
-
 const ContentContainer = styled.div`
-  height: 80vh;
-  background-color: azure;
-
-  overflow: scroll;
+  height: 30%;
+  margin-top: 25px;
   background-color: #4e697d;
+
+  margin-bottom: 50px;
 `;
 
-const ContentBox = styled.div``;
+const ContentBox = styled.div`
+  overflow: overlay;
+  &::-webkit-overflow-scrolling {
+    width: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  height: 80%;
+`;
 
 const TabMenu = styled.ul`
   height: 35px;
@@ -117,7 +126,13 @@ const TabMenu = styled.ul`
   list-style: none;
 `;
 const Menu = styled.li`
-  margin: 5px;
+  margin-left: 15px;
+  padding: 5px;
+  &:hover {
+    cursor: pointer;
+    background-color: #171a21;
+    color: white;
+  }
 `;
 const Desc = styled.div`
   display: flex;

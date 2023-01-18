@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../share/request";
-import axios from "axios";
+import jwtdecode from "jwt-decode";
 
 const initialState = {
   userInfo: [
@@ -12,37 +12,56 @@ const initialState = {
   ],
   error: null,
   isLoading: false,
+  loginCheck: false,
 };
 
-//DB에서 데이터 받아오기
-//로그인 POST요청
+//로그인
 export const __postLogin = createAsyncThunk(
   "login",
-  async (payload, thunkAPI) => {
-    console.log(payload);
+  async ({ user, navigate }, thunkAPI) => {
     try {
-      const data = await axiosInstance.post(`/api/auth/login`, payload);
-      // axios.then((res) => {
-      //   sessionStorage.setItem("access_token", res.headers.access_token);
-      //   sessionStorage.setItem("refresh_token", res.headers.refresh_token);
-      //   return res;
-      // });
+      const data = await axiosInstance.post(`/api/auth/login`, user);
+
+      //토큰을 로컬에 저장
+      const token = data.headers.get("Authorization");
+      localStorage.setItem("token", token);
+      console.log(localStorage.getItem("token"));
+
+      //로그인 성공시
+      if (data.data.statuscode === 200) {
+        const userId = jwtdecode(token);
+        alert(`${userId.sub}님 환영합니다`);
+      }
+      navigate("/");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      console.log(error);
+      console.log(error.response.data);
+      const errorObject = error.response.data;
+
+      //에러코드 처리
+      if (errorObject.status === 400) {
+        alert(`${errorObject.message}`);
+      }
+
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
+//회원가입
 export const __signUp = createAsyncThunk(
   "signUp",
   async (payload, thunkAPI) => {
     try {
+      //`/api/auth/signup`
       const data = await axiosInstance.post(`/api/auth/signup`, payload);
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       //에러
       console.log(error);
+      alert(`${error.response.data.errorMessage}`);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -67,7 +86,11 @@ export const __idCheck = createAsyncThunk(
 export const loginSignUp = createSlice({
   name: "loginSignUp",
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state, payload) => {
+      state.loginCheck = false;
+    },
+  },
   extraReducers: {
     //로그인
     [__postLogin.pending]: (state) => {
@@ -75,7 +98,7 @@ export const loginSignUp = createSlice({
     },
     [__postLogin.fulfilled]: (state, action) => {
       state.isLoading = false;
-      //state.isLogin = true;
+      state.loginCheck = true;
       //sessionStorage.setItem("userinfo", JSON.stringify(action.payload));
     },
     [__postLogin.rejected]: (state, action) => {
@@ -111,5 +134,5 @@ export const loginSignUp = createSlice({
     },
   },
 });
-
+export const { logOut } = loginSignUp.actions;
 export default loginSignUp.reducer;

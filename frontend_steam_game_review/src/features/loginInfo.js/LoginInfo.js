@@ -8,7 +8,7 @@ const LoginInfo = () => {
   const dispatch = useDispatch();
   //초기값
   const initialState = {
-    userId: "",
+    userid: "",
     password: "",
   };
   //유저 스테이트 생성
@@ -20,13 +20,13 @@ const LoginInfo = () => {
   };
 
   console.log(user);
-  //로그인 POST 요청
+  //로그인 요청
   const onSubmitLoginHandler = (e) => {
     e.preventDefault();
-    if (user.userId.trim() === "" || user.password.trim() === "") {
-      return alert("빈칸이있습니다");
+    if (user.userid.trim() === "" || user.password.trim() === "") {
+      return alert("모든 항목을 입력해주세요");
     }
-    dispatch(__postLogin(user));
+    dispatch(__postLogin({ user, navigate }));
     console.log(user);
   };
 
@@ -34,29 +34,29 @@ const LoginInfo = () => {
     <div>
       <LoginContainer>
         <div>
-          <h1>login</h1>
+          <LoginText>login</LoginText>
         </div>
         <FormBox onSubmit={onSubmitLoginHandler}>
           <div>
-            ID :
-            <input
+            <Text>ID </Text>
+            <Input
               placeholder="아이디를 입력해주세요"
               type="text"
-              name="userId"
+              name="userid"
               onChange={onChangeHandler}
-            ></input>
+            ></Input>
           </div>
           <div>
-            PassWord :{" "}
-            <input
+            <Text>PassWord </Text>
+            <Input
               type="password"
               name="password"
               onChange={onChangeHandler}
               placeholder="비밀번호를 입력해주세요"
-            ></input>
+            ></Input>
           </div>
           <div>
-            <button> 로그인 </button>
+            <SinIn> 로그인 </SinIn>
           </div>
         </FormBox>
       </LoginContainer>
@@ -66,6 +66,15 @@ const LoginInfo = () => {
 
 export default LoginInfo;
 
+const LoginText = styled.h1`
+  color: #fff;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.055em;
+  font-weight: 200;
+
+  margin-bottom: 20px;
+`;
 const LoginContainer = styled.div`
   border: 1px solid white;
 
@@ -74,7 +83,7 @@ const LoginContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  height: 80vh;
+  height: 88vh;
 `;
 
 const FormBox = styled.form`
@@ -90,4 +99,42 @@ const FormBox = styled.form`
   align-items: center;
 
   color: white;
+`;
+
+const Input = styled.input`
+  border-radius: 2px;
+  color: #fff;
+  padding: 10px;
+  background-color: #32353c;
+  outline: none;
+  font-size: 15px;
+  grid-area: input;
+  border: 1px solid #32353c;
+`;
+
+const Text = styled.div`
+  font-size: 12px;
+  color: #afafaf;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  user-select: none;
+  margin-bottom: 10px;
+`;
+
+const SinIn = styled.button`
+  position: relative;
+  background: linear-gradient(90deg, #06bfff 0%, #2d73ff 100%);
+  border-radius: 2px;
+  border: none;
+  outline: none;
+  padding: 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+
+  width: 200px;
 `;
