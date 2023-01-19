@@ -9,6 +9,9 @@ import {
 import CommentsCard from "./CommentsCard";
 
 const CommentsForm = () => {
+  //토큰여부
+  const token = localStorage.getItem("token");
+
   // 게임인포에서 보내는 게임 아이디값
   const { id } = useParams();
   console.log("코멘트폼 파람값?", id);
@@ -24,7 +27,13 @@ const CommentsForm = () => {
 
   //코멘트 입력
   const onChangeHandler = (event) => {
+    //토큰여부에 따라 등록 가능
+    if (!token) {
+      return alert("로그인을 해주세요");
+    }
+
     const { name, value } = event.target;
+    console.log(name, value);
     setComment({
       ...comment,
       [name]: value,
@@ -63,7 +72,13 @@ const CommentsForm = () => {
         <div>가장 유용한 평가</div>
         {/* 서버에서 데이터 불러오는동안 비동기로 처리되기 때문에 배열을 불러올 수 없음 그렇기 때문에 옵셔널 체인링을 사용 */}
         {comments?.map((comment) => (
-          <CommentsCard key={comment.id} comment={comment} />
+          <CommentsCard
+            name="commentEdite"
+            key={comment.id}
+            comment={comment}
+            comments={comments}
+            param={id}
+          />
         ))}
       </CommentContainer>
     </div>

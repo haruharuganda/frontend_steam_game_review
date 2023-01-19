@@ -41,6 +41,32 @@
       "postId": "3",
       "comment": "ㅁㅇㅁㄴㅇㄴㅁㅇ",
       "id": 10
+    },
+    {
+      "postId": "1",
+      "comment": "안녕하세요",
+      "id": 12
+    },
+    {
+      "postId": "1",
+      "comment": "aaaa",
+      "commentEdit": "",
+      "id": 14
+    },
+    {
+      "postId": "1",
+      "comment": "안녕하세요",
+      "id": 15
+    },
+    {
+      "postId": "undefined",
+      "comment": "aaaa",
+      "id": 16
+    },
+    {
+      "postId": "undefined",
+      "comment": "안녕하세",
+      "id": 17
     }
   ]
 }

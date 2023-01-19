@@ -8,6 +8,7 @@ const initialState = {
     id: 0,
     comment: "",
   },
+  disabledToggle: false,
   isLoading: false,
   error: null,
 };
@@ -49,6 +50,7 @@ export const __addComment = createAsyncThunk(
     }
   }
 );
+
 export const __deleteComment = createAsyncThunk(
   "deleteComment",
   async (payload, thunkAPI) => {
@@ -68,12 +70,34 @@ export const __deleteComment = createAsyncThunk(
     }
   }
 );
+export const __updateCommentDetail = createAsyncThunk(
+  //업데이트
+  "todos/update_comments",
+  async (payload, thunkAPI) => {
+    try {
+      const updateComment = payload.updateComment;
+      await axios.patch(
+        `http://localhost:3001/comments/${updateComment.id}`,
+        updateComment
+      );
+      return thunkAPI.fulfillWithValue(updateComment);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const commentsSlice = createSlice({
   name: "comments",
   // name: "comment",
   initialState,
-  reducers: {},
+  reducers: {
+    isDisabledToggle: (state, action) => {
+      console.log(action);
+      console.log(state);
+      state.disabledToggle = action.payload;
+    },
+  },
   extraReducers: {
     // get 받아오는 리듀서
     [__getComments.pending]: (state) => {
@@ -99,6 +123,7 @@ export const commentsSlice = createSlice({
     },
     // delete 리듀서
     [__deleteComment.fulfilled]: (state, action) => {
+      console.log(state.comments);
       const target = state.comments.findIndex(
         (comment) => comment.id === action.payload
       );
@@ -109,7 +134,24 @@ export const commentsSlice = createSlice({
       state.isLoading = true;
     },
     [__deleteComment.rejected]: () => {},
+
+    // update 리듀서
+    [__updateCommentDetail.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [__updateCommentDetail.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      const target = state.comments.findIndex(
+        (comment) => comment.id === action.payload.id
+      );
+      state.comments.splice(target, 1, action.payload);
+    },
+    [__updateCommentDetail.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
+export const { isDisabledToggle } = commentsSlice.actions;
 export default commentsSlice.reducer;
