@@ -128,7 +128,7 @@ export const commentsSlice = createSlice({
         (comment) => comment.id === action.payload
       );
       console.log("액션페이로드", action.payload);
-      state.comments.splice(target, 1);
+      state.comments.splice(target, 1); // state 변화 생김
     },
     [__deleteComment.pending]: (state) => {
       state.isLoading = true;

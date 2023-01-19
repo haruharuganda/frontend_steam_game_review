@@ -45,12 +45,18 @@
     {
       "postId": "1",
       "comment": "안녕하세요",
-      "id": 12
+      "id": 11
     },
     {
       "postId": "1",
-      "comment": "aaaa",
-      "commentEdit": "",
+      "comment": "asdasdasd",
+      "id": 12
+    },
+
+    {
+      "postId": "1",
+      "comment": "asdasdasdasd",
+
       "id": 14
     },
     {
@@ -63,10 +69,56 @@
       "comment": "aaaa",
       "id": 16
     },
+  
     {
-      "postId": "undefined",
-      "comment": "안녕하세",
+      "postId": "1",
+      "comment": "asdasdasd",
+      "id": 16
+    },
+    {
+      "postId": "1",
+      "comment": "ㄴㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
       "id": 17
+    },
+    {
+      "postId": "1",
+      "comment": "ㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴㅇㅁㄴㅇ",
+      "id": 18
+    },
+    {
+      "postId": "1",
+      "comment": "ㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
+      "id": 19
+    },
+    {
+      "postId": "1",
+      "comment": "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
+      "id": 20
+    },
+    {
+      "postId": "1",
+      "comment": "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
+      "id": 21
+    },
+    {
+      "postId": "1",
+      "comment": "asdasdasdasd",
+      "id": 22
+    },
+    {
+      "postId": "1",
+      "comment": "asdasdasd",
+      "id": 23
+    },
+    {
+      "postId": "1",
+      "comment": "asdasdasd",
+      "id": 24
+    },
+    {
+      "postId": "1",
+      "comment": "asdasdsd",
+      "id": 25
     }
   ]
 }

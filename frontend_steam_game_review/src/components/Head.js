@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../reduex/modules/loginSignUp";
+import logo from "../img/logo_steam.png";
+
 const Head = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
@@ -19,12 +21,13 @@ const Head = () => {
     <GlobalNav>
       <LogoTextContent>
         <LogoImg
+          src={logo}
+          alt="gasteam"
           onClick={() => {
             navigate(`/`);
           }}
-        >
-          Logo
-        </LogoImg>
+        ></LogoImg>
+        <div>STEAM NONO GASTEAM</div>
         <Menu>
           {token ? (
             <>
@@ -75,9 +78,14 @@ const LogoTextContent = styled.div`
   display: flex;
 
   justify-content: space-between;
+  align-items: center;
+
+  color: #b8b6b4;
+  font-size: 20px;
+  font-weight: 900;
 `;
 
-const LogoImg = styled.div`
+const LogoImg = styled.img`
   float: left;
   padding-top: 30px;
   margin-left: 40px;
@@ -100,15 +108,14 @@ const Menu = styled.div`
 const Login = styled.a`
   line-height: 16px;
   float: left;
-  font-size: 14px;
-  color: #b8b6b4;
+
   text-transform: uppercase;
 `;
 
 const Sign = styled.a`
   line-height: 16px;
   float: left;
-  font-size: 14px;
+
   color: #b8b6b4;
   text-transform: uppercase;
 `;

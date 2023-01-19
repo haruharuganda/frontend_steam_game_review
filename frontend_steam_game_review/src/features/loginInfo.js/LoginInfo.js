@@ -71,12 +71,12 @@ const LoginText = styled.h1`
   font-size: 32px;
   text-transform: uppercase;
   letter-spacing: 0.055em;
-  font-weight: 200;
+  font-weight: 500;
 
   margin-bottom: 20px;
 `;
 const LoginContainer = styled.div`
-  border: 1px solid white;
+  /* border: 1px solid white; */
 
   display: flex;
   flex-direction: column;
@@ -90,7 +90,7 @@ const FormBox = styled.form`
   width: 400px;
   height: 250px;
 
-  border: 1px solid white;
+  /* border: 1px solid white; */
 
   background-color: #171a21;
   display: flex;

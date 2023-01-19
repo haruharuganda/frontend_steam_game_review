@@ -43,6 +43,7 @@ const Main = () => {
     <>
       <Container>
         <ImgContainer>
+          <TitleText>추천게임</TitleText>
           <SimpleSlider img={gameList} />
         </ImgContainer>
 
@@ -101,6 +102,12 @@ const ImgContainer = styled.div`
   min-width: 20%;
 `;
 
+const TitleText = styled.div`
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 700;
+`;
+
 const ContentContainer = styled.div`
   height: 30%;
   margin-top: 25px;
@@ -110,13 +117,25 @@ const ContentContainer = styled.div`
 `;
 
 const ContentBox = styled.div`
-  overflow: overlay;
-  &::-webkit-overflow-scrolling {
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
   }
+
   height: 700px;
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+
+  height: 80%;
+
 `;
 
 const TabMenu = styled.ul`

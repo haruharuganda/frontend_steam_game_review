@@ -109,11 +109,11 @@ const STcard = styled.div`
   display: flex;
   justify-content: space-between;
 
-  border: 1px solid white;
+  /* border: 1px solid white; */
   border-radius: 5px;
 
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0px 0px 0px;
 
   background-color: #102646;
 `;
