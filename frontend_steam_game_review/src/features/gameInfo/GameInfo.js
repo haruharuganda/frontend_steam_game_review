@@ -68,7 +68,7 @@ const TitleBox = styled.div`
   margin-top: 5px;
   margin-left: 5px;
 
-  border: 1px solid white;
+  /* border: 1px solid white; */
 `;
 
 const ImgBox = styled.img`
@@ -77,24 +77,20 @@ const ImgBox = styled.img`
 
   margin: 2px auto;
 
-  border: 1px solid white;
+  /* border: 1px solid white; */
 
-  background-color: wheat;
+  /* background-color: wheat; */
 `;
 const ContentsContainer = styled.div`
   border: 1px solid white;
 
-  width: 350px;
-  height: 250px;
-
   margin: 10px auto;
 `;
 const ContentsBox = styled.div`
-  border: 1px solid white;
+  /* border: 1px solid white; */
 
   width: 350px;
   height: 200px;
 
   margin: 5px auto;
-  background-color: wheat;
 `;

@@ -47,8 +47,7 @@ const SignUpInfo = () => {
     if (name === "password")
       !regPassword.test(value)
         ? setPassInput(
-            `8~16자의 영문 대소문자와 숫자로 입력해주세요.
-                특수문자(!@#$%^&*)도 사용 가능합니다.`
+            `8~16자의 영문 대소문자와 숫자로 입력해주세요.\n특수문자(!@#$%^&*)도 사용 가능합니다.`
           )
         : setPassInput("");
 
@@ -66,7 +65,10 @@ const SignUpInfo = () => {
   //id중복확인
 
   const idCheck = () => {
-    dispatch(__idCheck);
+    if (userid.trim() === "") {
+      return alert("아이디를 입력해주세요.");
+    }
+    dispatch(__idCheck(userid));
   };
 
   //회원가입 POST 요청 및 공백 존재 시 경고창
@@ -106,11 +108,11 @@ const SignUpInfo = () => {
     <div>
       <LoginContainer>
         <div>
-          <h1>Sign Up</h1>
+          <SignUpText>Sign Up</SignUpText>
         </div>
         <FormBox onSubmit={onSubmitUserHandler}>
           <div>
-            ID :
+            <Text>ID</Text>
             <InputBox
               type={"text"}
               placeholder="아이디를 입력해주세요(4자 이상)"
@@ -118,13 +120,15 @@ const SignUpInfo = () => {
               value={userid}
               onChange={onChangeHandler}
             ></InputBox>
-            <button onClick={idCheck}>아이디 중복확인</button>
+            <button type="button" onClick={idCheck}>
+              중복확인
+            </button>
             <p id="help-user" className="help">
               {idInputmessage}
             </p>
           </div>
           <div>
-            PassWord :
+            <Text>password</Text>
             <InputBox
               type={"password"}
               name="password"
@@ -138,7 +142,7 @@ const SignUpInfo = () => {
             </p>
           </div>
           <div>
-            PasswordCheck :
+            <Text>passwordCheck</Text>
             <InputBox
               type="password"
               name="passwordCheck"
@@ -153,7 +157,7 @@ const SignUpInfo = () => {
           </div>
 
           <div>
-            Email :
+            <Text>Email</Text>
             <InputBox
               name="email"
               type="email"
@@ -165,12 +169,17 @@ const SignUpInfo = () => {
               {emailInputMessage}
             </p>
           </div>
-          <div>
-            <button> 회원가입 </button>
-          </div>
-          <div>
-            <button> 이전으로 </button>
-          </div>
+          <ButtonBox>
+            <Button> 회원가입 </Button>
+            <Button
+              onClick={() => {
+                navigate(`/`);
+              }}
+            >
+              {" "}
+              이전으로{" "}
+            </Button>
+          </ButtonBox>
         </FormBox>
       </LoginContainer>
     </div>
@@ -187,15 +196,24 @@ const LoginContainer = styled.div`
 
   height: 80vh;
 `;
+const SignUpText = styled.h1`
+  color: #fff;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.055em;
+  font-weight: 500;
+
+  margin-bottom: 20px;
+`;
 
 const FormBox = styled.form`
-  width: 400px;
-  height: 250px;
+  width: 500px;
+  height: 500px;
 
-  border: 1px solid white;
+  padding: 10px;
 
   background-color: #171a21;
-  display: flex;
+  display: grid;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
@@ -205,4 +223,42 @@ const FormBox = styled.form`
 
 const InputBox = styled.input`
   width: 250px;
+  margin-right: 20px;
+  border-radius: 2px;
+  color: #fff;
+  padding: 10px;
+  background-color: #32353c;
+  outline: none;
+  font-size: 15px;
+  grid-area: input;
+  border: 1px solid #32353c;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+const Button = styled.button`
+  position: relative;
+  background: linear-gradient(90deg, #06bfff 0%, #2d73ff 100%);
+  border-radius: 2px;
+  border: none;
+  outline: none;
+  padding: 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+`;
+
+const Text = styled.div`
+  font-size: 15px;
+  color: #afafaf;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  user-select: none;
+  margin-bottom: 10px;
 `;

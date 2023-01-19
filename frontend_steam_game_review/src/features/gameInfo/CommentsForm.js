@@ -11,16 +11,15 @@ import CommentsCard from "./CommentsCard";
 const CommentsForm = () => {
   // 게임인포에서 보내는 게임 아이디값
   const { id } = useParams();
-  console.log("코멘트폼 파람값?", id);
+  // console.log("코멘트폼 파람값?", id);
 
   //게임아이디를 넣기위한 선언문
-  // const gameid = id; //로컬
   const postId = id;
 
   const [comment, setComment] = useState({ comment: "", postId: id });
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments.comments);
-  console.log("셀렉터 코멘츠?", comments);
+  // console.log("셀렉터 코멘츠?", comments);
 
   //코멘트 입력
   const onChangeHandler = (event) => {
@@ -46,25 +45,29 @@ const CommentsForm = () => {
   useEffect(() => {
     dispatch(__getComments(postId));
   }, [dispatch]);
-  // console.log(gameid);
+  // console.log("성크로 보내는 아이디값?", postId);
   return (
     <div>
       <CommentContainer>
+        <CommentBar>
+          <div>고객 평가</div>
+          <input
+            size={40}
+            onChange={onChangeHandler}
+            name="comment"
+            type="text"
+            value={comment.comment}
+            placeholder="코멘트를 입력하세요."
+          ></input>
+          <button onClick={addComment}>등록</button>
+        </CommentBar>
         <div>가장 유용한 평가</div>
-        <input
-          size={40}
-          onChange={onChangeHandler}
-          name="comment"
-          type="text"
-          value={comment.comment}
-          placeholder="코멘트를 입력하세요."
-        ></input>
-        <button onClick={addComment}>등록</button>
-        <div>가장 유용한 평가</div>
-        {/* 서버에서 데이터 불러오는동안 비동기로 처리되기 때문에 배열을 불러올 수 없음 그렇기 때문에 옵셔널 체인링을 사용 */}
-        {comments?.map((comment) => (
-          <CommentsCard key={comment.id} comment={comment} />
-        ))}
+        <CommentBox>
+          {/* 서버에서 데이터 불러오는동안 비동기로 처리되기 때문에 배열을 불러올 수 없음 그렇기 때문에 옵셔널 체인링을 사용 */}
+          {comments?.map((comment) => (
+            <CommentsCard key={comment.id} comment={comment} />
+          ))}
+        </CommentBox>
       </CommentContainer>
     </div>
   );
@@ -73,13 +76,12 @@ const CommentsForm = () => {
 export default CommentsForm;
 
 const CommentContainer = styled.div`
-  border: 1px solid white;
+  /* border: 1px solid white; */
 
   width: 100%;
   height: 550px;
 
   margin: 20px auto;
-  padding: 5px;
 
   color: white;
   font-weight: 700;
@@ -87,9 +89,8 @@ const CommentContainer = styled.div`
   input {
     width: 85%;
     height: 20px;
-
-    padding: 10px;
-    margin: 12px;
+    margin-left: 10px;
+    padding: 5px;
 
     border: none;
     border-radius: 5px;
@@ -97,7 +98,7 @@ const CommentContainer = styled.div`
   }
   button {
     padding: 8px 13px;
-    margin: 10px;
+    margin-left: 20px;
     font-weight: 700;
     font-size: 20px;
 
@@ -106,5 +107,34 @@ const CommentContainer = styled.div`
     border-radius: 5px;
     background-color: #75b022;
     cursor: pointer;
+  }
+`;
+const CommentBar = styled.div`
+  background-color: #171a21;
+
+  padding: 10px;
+  height: 70px;
+  margin-bottom: 10px;
+`;
+
+const CommentBox = styled.div`
+  /* border: 1px solid white; */
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  padding-top: 10px;
+
+  height: 500px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
   }
 `;
