@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentsForm from "./CommentsForm";
 import { __getgames } from "../../reduex/modules/gameInfoSlice";
+import commentsSlice from "../../reduex/modules/commentsSlice";
 
 const GameInfo = () => {
   //게임리스트의 아이디 받아오기
@@ -16,6 +17,7 @@ const GameInfo = () => {
   const game = useSelector((state) => state.gameList.gameList);
   // console.log("게임의 셀렉터는?", game);
 
+  console.log(game);
   useEffect(() => {
     dispatch(__getgames(id));
   }, [dispatch]);
@@ -25,10 +27,12 @@ const GameInfo = () => {
       {/* 게임 디테일 이미지 */}
       <Wrap>
         <ImgContainer>
+          {/* 백연결 시 : {game.title},{game.imageUrl}  */}
           <TitleBox key={id}>{game.gameName}</TitleBox>
           <ImgBox src={game.gameImage}></ImgBox>
         </ImgContainer>
         {/* 게임 디테일 컨텐츠 */}
+        {/* 백연결시 : {game.explanation} */}
         <ContentsContainer>
           <TitleBox>contents</TitleBox>
           <ContentsBox></ContentsBox>

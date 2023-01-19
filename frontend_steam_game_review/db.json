@@ -44,7 +44,7 @@
     },
     {
       "postId": "1",
-      "comment": "asdasdasdas",
+      "comment": "안녕하세요",
       "id": 11
     },
     {
@@ -52,21 +52,24 @@
       "comment": "asdasdasd",
       "id": 12
     },
+
     {
       "postId": "1",
       "comment": "asdasdasdasd",
-      "id": 13
-    },
-    {
-      "postId": "1",
-      "comment": "asdasdasdasd",
+
       "id": 14
     },
     {
       "postId": "1",
-      "comment": "asdasdasdasdasd",
+      "comment": "안녕하세요",
       "id": 15
     },
+    {
+      "postId": "undefined",
+      "comment": "aaaa",
+      "id": 16
+    },
+  
     {
       "postId": "1",
       "comment": "asdasdasd",

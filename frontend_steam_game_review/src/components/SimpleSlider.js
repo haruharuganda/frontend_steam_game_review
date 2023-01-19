@@ -33,9 +33,9 @@ const SimpleSlider = ({ img }) => {
               <div key={index}>
                 <ImageContainer>
                   <Image
-                    src={item.gameImage}
+                    src={item.imageUrl}
                     onClick={() => {
-                      navigate(`/Detail/${item.id}`);
+                      navigate(`/Detail/${item.postId}`);
                     }}
                   />
                 </ImageContainer>

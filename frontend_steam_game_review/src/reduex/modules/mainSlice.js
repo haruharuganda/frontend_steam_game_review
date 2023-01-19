@@ -8,11 +8,12 @@ const initialState = {
   error: null,
 };
 
-//DB에서 데이터 받아오기
+//Main페이지 가져오기
 export const __getGameList = createAsyncThunk(
   "getGameList",
   async (payload, thunkAPI) => {
     try {
+      // const { data } = await axiosInstance.get("/api/post");
       const { data } = await axios.get("http://localhost:3001/gameList");
       console.log("메인슬라이스 데이터", data);
       return thunkAPI.fulfillWithValue(data);
@@ -22,40 +23,6 @@ export const __getGameList = createAsyncThunk(
     }
   }
 );
-
-// //DB에 데이터 추가
-// export const __postTodoList = createAsyncThunk(
-//   "postTodoList",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const { data } = await axios.post("http://localhost:3001/todos", payload);
-//       console.log("getTodoList ");
-//       return thunkAPI.fulfillWithValue(data);
-//     } catch (error) {
-//       console.log(error);
-//       return thunkAPI.fulfillWithValue(error);
-//     }
-//   }
-// );
-
-// //DB 데이터 삭제
-// export const __deleteTodoList = createAsyncThunk(
-//   "deleteTodoList",
-//   async (payload, thunkAPI) => {
-//     try {
-//       console.log(payload);
-//       const { data } = await axios.delete(
-//         `http://localhost:3001/todos/${payload}`
-//       );
-//       console.log("deleteTodoList ");
-
-//       return thunkAPI.fulfillWithValue(data);
-//     } catch (error) {
-//       console.log(error);
-//       return thunkAPI.fulfillWithValue(error);
-//     }
-//   }
-// );
 
 //리덕스
 const mainSlice = createSlice({
@@ -76,32 +43,6 @@ const mainSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-
-    // //post
-    // [__postTodoList.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__postTodoList.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.todos = [...state.todos, action.payload];
-    // },
-    // [__postTodoList.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-
-    // //delete
-    // [__deleteTodoList.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__deleteTodoList.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.todos = state.todos.filter((list) => list.id !== action.payload);
-    // },
-    // [__deleteTodoList.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
   },
 });
 
