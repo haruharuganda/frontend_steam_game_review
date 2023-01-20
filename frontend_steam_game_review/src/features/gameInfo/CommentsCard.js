@@ -158,3 +158,5 @@ const Comment = styled.div`
 const InputUpdateComment = styled.input`
   margin-top: 8px;
 `;
+
+const Next = styled.input``;
