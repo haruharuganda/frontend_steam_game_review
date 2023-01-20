@@ -64,19 +64,16 @@ const Main = () => {
                   <Desc
                     onClick={() => {
                       //백 연결시 : /Detail/${content.postId}
-                      //로컬 : /Detail/${content.id}
-                      navigate(`/Detail/${content.postId}`);
+                      navigate(`/Detail/${content.id}`);
                     }}
                     key={index}
                   >
                     <ContentImgBox>
                       {/* 백 연결시 : content.imageUrl */}
-                      {/* 로컬 연결 : {content.gameImage} */}
-                      <ContentImg src={content.imageUrl}></ContentImg>
+                      <ContentImg src={content.gameImage}></ContentImg>
                     </ContentImgBox>
                     {/* 백 연결시 : content.title */}
-                    {/* 로컬 연결 : {content.gameName} */}
-                    <Title>{content.title}</Title>
+                    <Title>{content.gameName}</Title>
                   </Desc>
                 );
               })}
@@ -138,6 +135,7 @@ const ContentBox = styled.div`
   }
 
   height: 80%;
+
 `;
 
 const TabMenu = styled.ul`

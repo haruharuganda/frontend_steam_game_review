@@ -13,7 +13,7 @@ const Head = () => {
   const logout = () => {
     console.log(localStorage.getItem("token"));
     localStorage.removeItem("token");
-    console.log(localStorage.getItem("token"));
+    localStorage.removeItem("userId");
     navigate(`/`);
   };
 

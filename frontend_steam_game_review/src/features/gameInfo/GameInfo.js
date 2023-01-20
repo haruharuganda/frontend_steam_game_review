@@ -17,7 +17,7 @@ const GameInfo = () => {
   const game = useSelector((state) => state.gameList.gameList);
   // console.log("게임의 셀렉터는?", game);
 
-  //console.log(game);
+  console.log(game);
   useEffect(() => {
     dispatch(__getgames(id));
   }, [dispatch]);
@@ -28,16 +28,14 @@ const GameInfo = () => {
       <Wrap>
         <ImgContainer>
           {/* 백연결 시 : {game.title},{game.imageUrl}  */}
-          {/* 로컬 연걸 : {game.gameName},{game.gameImage} */}
-          <TitleBox key={id}>{game.title}</TitleBox>
-          <ImgBox src={game.imageUrl}></ImgBox>
+          <TitleBox key={id}>{game.gameName}</TitleBox>
+          <ImgBox src={game.gameImage}></ImgBox>
         </ImgContainer>
         {/* 게임 디테일 컨텐츠 */}
         {/* 백연결시 : {game.explanation} */}
         <ContentsContainer>
-          <TitleBox>{game.title}</TitleBox>
-          <ContentsBox>Genre : {game.genre}</ContentsBox>
-          <ContentsBox>{game.explanation}</ContentsBox>
+          <TitleBox>contents</TitleBox>
+          <ContentsBox></ContentsBox>
         </ContentsContainer>
       </Wrap>
       {/* 코멘트 달리는 폼 */}
@@ -52,14 +50,14 @@ const GameInfoContainer = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-
-  margin-top: 20px;
 `;
 const Wrap = styled.div`
   display: flex;
   gap: 10px;
 `;
 const ImgContainer = styled.div`
+  border: 1px solid white;
+
   width: 500px;
   height: 250px;
 
@@ -69,21 +67,17 @@ const TitleBox = styled.div`
   width: 200px;
   height: 30px;
 
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 30px;
 
   margin-top: 5px;
-  margin-bottom: 20px;
   margin-left: 5px;
 
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c6d4df;
   /* border: 1px solid white; */
 `;
 
 const ImgBox = styled.img`
   width: 500px;
-  height: 180px;
+  height: 200px;
 
   margin: 2px auto;
 
@@ -92,14 +86,15 @@ const ImgBox = styled.img`
   /* background-color: wheat; */
 `;
 const ContentsContainer = styled.div`
+  border: 1px solid white;
+
   margin: 10px auto;
 `;
 const ContentsBox = styled.div`
   /* border: 1px solid white; */
-  margin-left: 5px;
-  margin-bottom: 10px;
-  color: #c6d4df;
-  font-family: Arial, Helvetica, sans-serif;
+
   width: 350px;
-  line-height: 125%;
+  height: 200px;
+
+  margin: 5px auto;
 `;
