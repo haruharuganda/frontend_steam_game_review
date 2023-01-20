@@ -98,10 +98,9 @@ const SignUpInfo = () => {
         userid,
         password,
         email,
+        navigate,
       })
     );
-
-    navigate("/");
   };
 
   return (

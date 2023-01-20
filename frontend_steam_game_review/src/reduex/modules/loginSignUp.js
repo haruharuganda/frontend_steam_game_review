@@ -56,6 +56,8 @@ export const __signUp = createAsyncThunk(
       //   payload
       // );
       console.log(data);
+      alert(`${data.data.data}`);
+      payload.navigate("/");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       //에러
@@ -128,7 +130,7 @@ export const loginSignUp = createSlice({
     },
     [__idCheck.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.signup.push(action.payload);
+      state.userInfo.push(action.payload);
     },
     [__idCheck.rejected]: (state, action) => {
       state.isLoading = false;

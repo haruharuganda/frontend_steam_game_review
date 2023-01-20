@@ -131,12 +131,12 @@ const CommentBar = styled.div`
 const CommentBox = styled.div`
   /* border: 1px solid white; */
 
-  overflow-y: scroll;
-  overflow-x: hidden;
-
   padding-top: 10px;
 
   height: 500px;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   &::-webkit-scrollbar {
     width: 8px;
