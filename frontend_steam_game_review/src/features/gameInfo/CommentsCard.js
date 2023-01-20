@@ -11,6 +11,9 @@ import {
 const CommentsCard = ({ comment, param }) => {
   const dispatch = useDispatch();
 
+  //토큰여부로 댓글수정막기
+  const token = localStorage.getItem("token");
+
   //수정이 활성화 될 시 다른 수정버튼 작동 막기
   const { disabledToggle } = useSelector((state) => state.comments);
   console.log(disabledToggle);
@@ -20,6 +23,9 @@ const CommentsCard = ({ comment, param }) => {
 
   //삭제기능
   const onDeleteHandler = () => {
+    //토큰이 없을 경우 실행 못하도록
+    if (!token) return alert("로그인을 해주세요");
+
     const result = window.confirm("이 코멘트를 지울까요?");
     if (result) {
       return dispatch(__deleteComment(comment.id));
@@ -31,7 +37,11 @@ const CommentsCard = ({ comment, param }) => {
   //수정기능
   //수정버튼 눌렀을시
   const onChangeEditMode = () => {
+    //토큰이 없을 경우 실행 못하도록
+    if (!token) return alert("로그인을 해주세요");
+    //편집모드
     setEditMode(true);
+    //수정을 했을 시 다른 버튼들 비활성화
     dispatch(isDisabledToggle(true));
   };
   //수정시 빈칸입력
@@ -42,6 +52,7 @@ const CommentsCard = ({ comment, param }) => {
 
   //수정버튼 클릭시
   const onEditButtonHandler = () => {
+    //빈칸 유효성
     if (commentUpdate.trim() === "") {
       return alert("입력된 내용이 없습니다.");
     }
@@ -61,16 +72,18 @@ const CommentsCard = ({ comment, param }) => {
   };
   return (
     <>
-      <STcard>
-        <div type="text">{comment.id}</div>
+      <STcard token={token}>
         {editMode ? (
           <>
+            <CommentsBox token={token}>
+              <div type="text">{comment.id}</div>
+            </CommentsBox>
             <div>
-              <input
+              <InputUpdateComment
                 type="text"
                 value={commentUpdate}
                 onChange={onChangeHandler}
-              ></input>
+              ></InputUpdateComment>
             </div>
             <div>
               <button onClick={onEditButtonHandler}>수정완료</button>
@@ -85,17 +98,22 @@ const CommentsCard = ({ comment, param }) => {
           </>
         ) : (
           <>
-            <div>
-              <div>{comment.comment}</div>
-            </div>
-            <div>
-              <button onClick={onChangeEditMode} disabled={disabledToggle}>
-                수정
-              </button>
-              <button onClick={onDeleteHandler} disabled={disabledToggle}>
-                삭제
-              </button>
-            </div>
+            <TextBox>
+              <CommentsBox token={token}>
+                <div type="text">{comment.id}</div>
+                <Comment>{comment.comment}</Comment>
+              </CommentsBox>
+            </TextBox>
+            {token && (
+              <div>
+                <button onClick={onChangeEditMode} disabled={disabledToggle}>
+                  수정
+                </button>
+                <button onClick={onDeleteHandler} disabled={disabledToggle}>
+                  삭제
+                </button>
+              </div>
+            )}
           </>
         )}
       </STcard>
@@ -105,9 +123,14 @@ const CommentsCard = ({ comment, param }) => {
 
 export default CommentsCard;
 
+const TextBox = styled.div`
+  width: 70%;
+  display: flex;
+`;
 const STcard = styled.div`
   display: flex;
-  justify-content: space-between;
+
+  justify-content: ${(props) => props.token && "space-between"};
 
   /* border: 1px solid white; */
   border-radius: 5px;
@@ -116,4 +139,19 @@ const STcard = styled.div`
   margin: 10px 0px 0px 0px;
 
   background-color: #102646;
+`;
+
+const CommentsBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding: ${(props) => props.token || "17px 13px"};
+  margin-left: 20px;
+  height: ${(props) => props.token && ""};
+`;
+
+const Comment = styled.div`
+  margin-left: 250px;
+`;
+const InputUpdateComment = styled.input`
+  margin-top: 20px;
 `;
