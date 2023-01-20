@@ -4,13 +4,7 @@ import jwtdecode from "jwt-decode";
 import axios from "axios";
 
 const initialState = {
-  userInfo: [
-    {
-      userid: "",
-      password: "",
-      email: "",
-    },
-  ],
+  userInfo: [],
   error: null,
   isLoading: false,
   loginCheck: false,
@@ -111,8 +105,6 @@ export const loginSignUp = createSlice({
     },
     [__postLogin.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.loginCheck = true;
-      //sessionStorage.setItem("userinfo", JSON.stringify(action.payload));
     },
     [__postLogin.rejected]: (state, action) => {
       state.isLoading = false;
@@ -125,7 +117,7 @@ export const loginSignUp = createSlice({
     },
     [__signUp.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.signup.push(action.payload);
+      state.userInfo.push(action.payload);
     },
     [__signUp.rejected]: (state, action) => {
       state.isLoading = false;

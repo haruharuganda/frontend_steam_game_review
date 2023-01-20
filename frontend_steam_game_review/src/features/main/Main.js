@@ -25,7 +25,7 @@ const Main = () => {
     } else {
       console.log(e.target.id);
       const newGameList = gameList.filter(
-        (genre) => genre.gameGenre === e.target.id
+        (genre) => genre.genre === e.target.id
       );
       setNewList(newGameList);
     }
@@ -63,13 +63,16 @@ const Main = () => {
                 return (
                   <Desc
                     onClick={() => {
+                      //백 연결시 : /Detail/${content.postId}
                       navigate(`/Detail/${content.id}`);
                     }}
                     key={index}
                   >
                     <ContentImgBox>
+                      {/* 백 연결시 : content.imageUrl */}
                       <ContentImg src={content.gameImage}></ContentImg>
                     </ContentImgBox>
+                    {/* 백 연결시 : content.title */}
                     <Title>{content.gameName}</Title>
                   </Desc>
                 );
@@ -123,12 +126,16 @@ const ContentBox = styled.div`
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
   }
+
+  height: 700px;
+
   &::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 6px;
   }
 
   height: 80%;
+
 `;
 
 const TabMenu = styled.ul`
